@@ -3,8 +3,8 @@ package com.css.craps;
 public class Dice {
 
 
-    private static int d1;
-    private static int d2;
+    private int d1;
+    private int d2;
 
     public int getD1() {
         return d1;
@@ -14,7 +14,7 @@ public class Dice {
         return d2;
     }
 
-    public static int rollDice(){
+    public int rollDice(){
         d1 = randomInt(1,6);
         d2 = randomInt(1,6);
 

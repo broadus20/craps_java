@@ -92,7 +92,7 @@ public class CrapsApp {
         System.out.println("Roll Dice");
         System.out.println("\n\n");
         String input = scanner.nextLine();
-        table.roll = Dice.rollDice();
+        table.roll = dice.rollDice();
         System.out.println("You rolled a: " + table.roll);
         System.out.println("\n\n");
     }
