@@ -30,19 +30,25 @@ public class CrapsApp {
         }
     }
 
-    private void outcome() {
-        // Point Off, If win point stays off, If loss money is wiped, If point - phase 2
-        if (table.pointOn == false) {
+    // Point Off, If win point stays off, If loss money is wiped, If point - phase 2
+    private void confirmPoint() {
+        if (table.getPointOn() == false) {
             resultNoPoint();
         }
-        else if (table.roll == table.point) { // if the point is hit
+        else {
+            outcome();
+        }
+    }
+
+    private void outcome() {
+        if (table.roll == table.getPointNum()) { // if the point is hit
             table.pay();
-            table.pointOn = false;
+            table.setPointOn(false);
         }
         else { // if 7, wipe board
             if (table.roll == 7){
                 table.pay();
-                table.pointOn = false;
+                table.setPointOn(false);
             }
         }
     }
@@ -58,34 +64,26 @@ public class CrapsApp {
         }
         // Set Point
         else{
-            table.point = table.roll;
+            table.setPointNum(table.roll);
         }
     }
 
-    private String promptForBet() {
-        String yn;
-
+    private void promptForBet() {
         boolean validInput = false;
         while (!validInput) {
-            System.out.println("Would you like to make a bet? [y/n] ");
+            System.out.println("Would you like to place a bet? [y/n] ");
             String input = scanner.nextLine();
-
-            if (input.matches("\\s{y,n}")) {
-                switch (input) {
-                    case "y":
-                        validInput = true;
-                        Table.bet();
-                        break;
-                    case "n":
-                        validInput = true;
-                        break;
-                    default:
-                        System.out.println("Please try again");
-                }
-
+            if (input.equals("y") || input.equals("Y")) {
+                table.bet();
+                //multiBet();
+                validInput = true;
+            } else if (input.equals("n") || input.equals("N")){
+                validInput = true;
+            }
+            else {
+                System.out.println(input + " is not a valid input. Please try again");
             }
         }
-        return "";
     }
 
     private void rollDice(){

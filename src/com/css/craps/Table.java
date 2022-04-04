@@ -8,11 +8,11 @@ public class Table {
 
 
     // Table Modifiers
-    public static boolean pointOn = false;
-    public static int point = 0;
-    private static int MAX = 1000;
-    private static int MIN = 5;
-    // TODO: Function to return oddsratio depending on point
+    private static boolean pointOn = false;
+    private int pointNum = 0;
+    private static int MAX_BET = 1000;
+    private static int MIN_BET = 5;
+    // TODO: Function to return oddsratio depending on point, will affect payout
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
     public int roll;
 
@@ -38,7 +38,7 @@ public class Table {
     }
 
     // Method to ask user to input amount for bet
-    public static int getBet(){
+    public static int userInputBet(){
         int bet = 0;
 
         boolean validInput = false;
@@ -49,7 +49,7 @@ public class Table {
             // TODO: 1,2,3,4,5,6  digits for a bet
             if (input.matches("\\d{1,2}")) {
                 bet = Integer.parseInt(input);
-                if (MIN <= bet && bet <= player.bank && bet <= MAX) {
+                if (MIN_BET <= bet && bet <= player.getBank() && bet <= MAX_BET) {
                     validInput = true;
                 }
             }
@@ -58,7 +58,7 @@ public class Table {
     }
 
     // General method for placing bets
-    public static void bet(){
+    public void bet(){
         System.out.println("Type 1 for passline bet: ");
         int betType; // Get type of bet to be placed
         betType = scanner.nextInt(); // 1 will be passline bet
@@ -67,27 +67,27 @@ public class Table {
         }
     }
 
-    public static void passlineBet(){
+    public void passlineBet(){
         if (pointOn != true) {
-            player.passline = getBet();
+            player.passLine = userInputBet();
         }
         else {
-            System.out.println("Point is on " + getPoint() + " please wait to make passline bet.");
+            System.out.println("Point is on " + getPointNum() + " please wait to make passline bet.");
         }
     }
 
     // TODO: win/loss pay **** Math for payouts
     public void pay(){
-        int money = player.bank;
-        if (player.passlineBet){ // check passline bet
-            if (!pointOn){ // No point payout
-                if (this.roll == 7 || this.roll == 11){
-                    money += player.passline;
+        int money = player.getBank();
+        if (player.getpassLineBet()){ // check passline bet
+            if (!getPointOn()){ // No point payout
+                if (this.getRoll() == 7 || this.getRoll() == 11){
+                    money += player.getPassLine();
                 }
             }
             else { // point established payout
-                if (this.roll == point){
-                    money += player.passline + player.oddsPassline * oddsRatio;
+                if (this.getRoll() == getPointNum()){
+                    money += player.getPassLine()+ player.getOddsPassLine() * getOddsRatio();
                 }
             }
         }
@@ -95,11 +95,27 @@ public class Table {
         // TODO: Field Bet
     }
 
-    public static int getPoint() {
-        return point;
+    public static boolean getPointOn() {
+        return pointOn;
     }
 
-    public static void setPoint(int point) {
-        Table.point = point;
+    public static void setPointOn(boolean pointOn) {
+        Table.pointOn = pointOn;
+    }
+
+    public int getPointNum() {
+        return pointNum;
+    }
+
+    public void setPointNum(int pointNum) {
+        this.pointNum = pointNum;
+    }
+
+    public int getRoll() {
+        return roll;
+    }
+
+    public double getOddsRatio() {
+        return oddsRatio;
     }
 }
