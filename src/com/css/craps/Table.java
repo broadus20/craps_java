@@ -3,18 +3,18 @@ package com.css.craps;
 import java.util.Scanner;
 
 public class Table {
-    private static Scanner scanner;
-    private static Player player = new Player();
-
+    private Scanner scanner;
+    private Player player = new Player();
+    private Dice dice = new Dice();
 
     // Table Modifiers
-    private static boolean pointOn = false;
+    private boolean pointOn = false;
     private int pointNum = 0;
-    private static int MAX_BET = 1000;
-    private static int MIN_BET = 5;
+    private final int MAX_BET = 1000;
+    private final int MIN_BET = 5;
     // TODO: Function to return oddsratio depending on point, will affect payout
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
-    public int roll;
+    private int roll;
 
 
     public void Table(){
@@ -22,7 +22,7 @@ public class Table {
     }
 
     // Method to ask user to input amount for bet
-    public static int userInputBet(){
+    public int userInputBet(){
         int bet = 0;
 
         boolean validInput = false;
@@ -65,12 +65,12 @@ public class Table {
         int money = player.getBank();
         if (player.getpassLineBet()){ // check passline bet
             if (!getPointOn()){ // No point payout
-                if (this.getRoll() == 7 || this.getRoll() == 11){
+                if (calculateRoll() == 7 || calculateRoll()  == 11){
                     money += player.getPassLine();
                 }
             }
             else { // point established payout
-                if (this.getRoll() == getPointNum()){
+                if ( calculateRoll()  == getPointNum()){
                     money += player.getPassLine()+ player.getOddsPassLine() * getOddsRatio();
                 }
             }
@@ -79,12 +79,17 @@ public class Table {
         // TODO: Field Bet
     }
 
-    public static boolean getPointOn() {
+    public int calculateRoll (){
+        roll = dice.getD1() + dice.getD2();
+        return roll;
+    }
+
+    public boolean getPointOn() {
         return pointOn;
     }
 
-    public static void setPointOn(boolean pointOn) {
-        Table.pointOn = pointOn;
+    public void setPointOn(boolean pointOn) {
+        this.pointOn = pointOn;
     }
 
     public int getPointNum() {
@@ -93,10 +98,6 @@ public class Table {
 
     public void setPointNum(int pointNum) {
         this.pointNum = pointNum;
-    }
-
-    public int getRoll() {
-        return roll;
     }
 
     public double getOddsRatio() {

@@ -6,8 +6,7 @@ import com.css.craps.Table;
 import java.util.Scanner;
 
 public class CrapsApp {
-    private static Table table = new Table();
-    private static Dice dice = new Dice();
+    private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
     public void execute(){
@@ -43,12 +42,12 @@ public class CrapsApp {
     }
 
     private void outcome() {
-        if (table.roll == table.getPointNum()) { // if the point is hit
+        if (table.calculateRoll() == table.getPointNum()) { // if the point is hit
             table.pay();
             table.setPointOn(false);
         }
         else { // if 7, wipe board
-            if (table.roll == 7){
+            if (table.calculateRoll() == 7){
                 table.pay();
                 table.setPointOn(false);
             }
@@ -57,16 +56,16 @@ public class CrapsApp {
 
     private void resultNoPoint(){
         // Win Case
-        if (table.roll == 7 || table.roll == 11){
+        if (table.calculateRoll() == 7 || table.calculateRoll() == 11){
             table.pay();
         }
         // Lose Case
-        else if (table.roll == 2 || table.roll == 3 || table.roll == 12){
+        else if (table.calculateRoll()== 2 ||table.calculateRoll()== 3 ||table.calculateRoll() == 12){
             table.pay();
         }
         // Set Point
         else{
-            table.setPointNum(table.roll);
+            table.setPointNum(table.calculateRoll());
         }
     }
 
@@ -92,8 +91,7 @@ public class CrapsApp {
         System.out.println("Roll Dice");
         System.out.println("\n\n");
         String input = scanner.nextLine();
-        table.roll = dice.rollDice();
-        System.out.println("You rolled a: " + table.roll);
+        System.out.println("You rolled a: " + table.calculateRoll());
         System.out.println("\n\n");
     }
 
