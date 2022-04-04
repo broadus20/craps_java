@@ -1,11 +1,13 @@
 package com.craps.app;
 
+import com.css.craps.Dice;
 import com.css.craps.Table;
 
 import java.util.Scanner;
 
 public class CrapsApp {
     private static Table table = new Table();
+    private static Dice dice = new Dice();
     private Scanner scanner = new Scanner(System.in);
 
     public void execute(){
@@ -90,7 +92,7 @@ public class CrapsApp {
         System.out.println("Roll Dice");
         System.out.println("\n\n");
         String input = scanner.nextLine();
-        table.roll = table.rollDice();
+        table.roll = Dice.rollDice();
         System.out.println("You rolled a: " + table.roll);
         System.out.println("\n\n");
     }
