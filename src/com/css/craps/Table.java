@@ -68,10 +68,19 @@ public class Table {
         if (betType == 1){
 
         }
-
     }
 
     public static void passlineBet(){
+        if (pointOn != true) {
+            passlineBet = getBet();
+        }
+        else {
 
+        }
+    }
+
+    // TODO: win/loss pay
+    public static void pay(){
+        break;
     }
 }

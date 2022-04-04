@@ -28,11 +28,22 @@ public class CrapsApp {
             System.out.println("You rolled a: " + roll);
             System.out.println("\n\n");
 
-
+            // If win point stays off, If loss money is wiped, If point - phase 2
+            result();
         }
         catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private static void result{
+        // Win Case
+
+
+        // Lose Case
+
+        // Point Case
+
     }
 
     private String promptForBet() {
