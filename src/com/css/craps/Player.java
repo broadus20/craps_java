@@ -1,7 +1,7 @@
 package com.css.craps;
 
-class Player {
-    public int bank = 10000;
+public class Player {
+    public static int bank = 10000;
 
     //bets place
     boolean passlineBet = false;
@@ -16,5 +16,4 @@ class Player {
     public int dontpass = 0;
     public int oddsDontpass = 0;
     public int field = 0;
-
 }
