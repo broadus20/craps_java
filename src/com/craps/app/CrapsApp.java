@@ -1,6 +1,5 @@
 package com.craps.app;
 
-import com.css.craps.Dice;
 import com.css.craps.Table;
 
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class CrapsApp {
     private static final String flamingoPath = "data/flamingo_hotel.txt";
@@ -30,30 +30,42 @@ public class CrapsApp {
             rollDice();
             // outcome
             outcome();
+            // Play profile
+            layout();
         }
-
         catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    // Point Off, If win point stays off, If loss money is wiped, If point - phase 2
-    private void confirmPoint() {
-        if (table.getPointOn() == false) {
-            resultNoPoint();
+    private void layout() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(1);
+        table.layout();
+        System.out.println("\n");
+        if(table.isPointOn()){
+            System.out.println("The point is: " + table.getPlayersPointNumber());
         }
-        else {
-            outcome();
+        else{
+            System.out.println("There is no point");
         }
+        System.out.println("\n");
     }
 
+
     private void outcome() {
-        if (table.calculateRoll() == table.getPointNum()) { // if the point is hit
+        // Point Off, If win point stays off, If loss money is wiped, If point - phase 2
+        if (table.isPointOn() == false) {
+            table.payField();
+            resultNoPoint();
+        }
+        else if (table.getRoll() == table.point) { // if the point is hit
+            table.payField();
             table.pay();
             table.setPointOn(false);
         }
         else { // if 7, wipe board
-            if (table.calculateRoll() == 7){
+            if (table.getRoll() == 7){
+                table.payField();
                 table.pay();
                 table.setPointOn(false);
             }
@@ -62,16 +74,17 @@ public class CrapsApp {
 
     private void resultNoPoint(){
         // Win Case
-        if (table.calculateRoll() == 7 || table.calculateRoll() == 11){
+        if (table.getRoll() == 7 || table.getRoll() == 11){
             table.pay();
         }
         // Lose Case
-        else if (table.calculateRoll()== 2 ||table.calculateRoll()== 3 ||table.calculateRoll() == 12){
+        else if (table.getRoll() == 2 || table.getRoll() == 3 || table.getRoll() == 12){
             table.pay();
         }
         // Set Point
         else{
-            table.setPointNum(table.calculateRoll());
+            table.setPoint(table.getRoll());
+            table.setPointOn(false);
         }
     }
 
@@ -82,8 +95,24 @@ public class CrapsApp {
             String input = scanner.nextLine();
             if (input.equals("y") || input.equals("Y")) {
                 table.bet();
-                //multiBet();
+                multiBet();
                 validInput = true;
+            } else if (input.equals("n") || input.equals("N")){
+                validInput = true;
+            }
+            else {
+            System.out.println(input + " is not a valid input. Please try again");
+            }
+        }
+    }
+
+    private void multiBet(){
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.println("Would you like to place another bet? [y/n] ");
+            String input = scanner.nextLine();
+            if (input.equals("y") || input.equals("Y")) {
+                table.bet();
             } else if (input.equals("n") || input.equals("N")){
                 validInput = true;
             }
@@ -94,11 +123,16 @@ public class CrapsApp {
     }
 
     private void rollDice(){
-        System.out.println("Roll Dice");
-        System.out.println("\n\n");
+        System.out.println("Press Enter to Roll... ");
         String input = scanner.nextLine();
-        System.out.println("You rolled a: " + table.calculateRoll());
-        System.out.println("\n\n");
+
+        if (table.getRoll() == 8 ||table.getRoll() == 11 ){
+            System.out.println("You rolled an: " + table.getRoll());
+        }
+        else {
+            System.out.println("You rolled a: " + table.getRoll());
+        }
+        System.out.println("\n");
     }
 
     private void welcome(){
@@ -113,5 +147,13 @@ public class CrapsApp {
             e.printStackTrace();
         }
         System.out.println("\n\n");
+              System.out.println(
+                "  ____\n" +
+                " /\\' .\\    _____\n" +
+                "/: \\___\\  / .  /\\\n" +
+                "\\' / . / /____/..\\\n" +
+                " \\/___/  \\'  '\\  /\n" +
+                "          \\'__'\\/\n" +
+                "\n");
     }
 }

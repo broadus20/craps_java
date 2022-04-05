@@ -1,34 +1,22 @@
 package com.css.craps;
 
-class Player extends Dice{
-    private int bank = 10000;
-    private int bet = 0;
+public class Player {
+    public static int bank = 10000;
 
     //bets place
-    boolean passLineBet = false;
-    //boolean passLineOdds = false;
-    boolean dontPassBet = false;
-    //boolean dontPassOdds = false;
-    boolean fieldBet = false;
-    
-    // Table Bets -  why are these on Player??
-    public int passLine = 0;        //passLineBetAmount
-    public int oddsPassLine = 0;
-    public int dontPass = 0;
-    //public int oddsDontPass = 0;
-    public int field = 0;
+    boolean isPasslineBetPlaced = false;
+    boolean isTherePassLineOdds = false;
+    boolean isDontPassBetPlaced = false;
+    boolean isThereDontPassOdds = false;
+    boolean isFieldBet = false;
 
-    //ctor
-    public Player() {
-        
-    }
-    
-    //business method
-    public void makeBet() {
+    // Table Bets
+    public int passlineBet = 0;
+    public int oddsPasslineBet = 0;
+    public int dontpassBet = 0;
+    public int oddsDontpassBet = 0;
+    public int fieldBet = 0;
 
-    }
-    
-    //accessor methods
     public int getBank() {
         return bank;
     }
@@ -37,74 +25,83 @@ class Player extends Dice{
         this.bank = bank;
     }
 
-    public boolean getpassLineBet() {
-        return passLineBet;
+    public boolean isPasslineBetPlaced() {
+        return isPasslineBetPlaced;
     }
 
-    public void setPassLineBet(boolean passLineBet) {
-        this.passLineBet = passLineBet;
+    public void setPasslineBetPlaced(boolean passlineBetPlaced) {
+        this.isPasslineBetPlaced = passlineBetPlaced;
     }
 
-    public boolean getDontPassBet() {
-        return dontPassBet;
+    public boolean isTherePassLineOdds() {
+        return isTherePassLineOdds;
     }
 
-    public void setDontPassBet(boolean dontPassBet) {
-        this.dontPassBet = dontPassBet;
+    public void setTherePassLineOdds(boolean therePassLineOdds) {
+        this.isTherePassLineOdds = therePassLineOdds;
+    }
+    //this method name needs to be changed, but it will be easy to just refactor and rename
+    public boolean isDontPassBetPlaced() {
+        return isDontPassBetPlaced;
     }
 
-    public boolean getFieldBet() {
-        return fieldBet;
+    public void setDontPassBetPlaced(boolean dontPassBetPlaced) {
+        this.isDontPassBetPlaced = dontPassBetPlaced;
+    }
+
+    public boolean isThereDontPassOdds() {
+        return isThereDontPassOdds;
+    }
+
+    public void setThereDontPassOdds(boolean thereDontPassOdds) {
+        this.isThereDontPassOdds = thereDontPassOdds;
+    }
+
+    public boolean isFieldBet() {
+        return isFieldBet;
     }
 
     public void setFieldBet(boolean fieldBet) {
+        this.isFieldBet = fieldBet;
+    }
+
+    public int getPasslineBet() {
+        return passlineBet;
+    }
+
+    public void setPasslineBet(int passlineBet) {
+        this.passlineBet = passlineBet;
+    }
+
+    public int getOddsPasslineBet() {
+        return oddsPasslineBet;
+    }
+
+    public void setOddsPasslineBet(int oddsPasslineBet) {
+        this.oddsPasslineBet = oddsPasslineBet;
+    }
+
+    public int getDontpassBet() {
+        return dontpassBet;
+    }
+
+    public void setDontpassBet(int dontpassBet) {
+        this.dontpassBet = dontpassBet;
+    }
+
+    public int getOddsDontpassBet() {
+        return oddsDontpassBet;
+    }
+
+    public void setOddsDontpassBet(int oddsDontpassBet) {
+        this.oddsDontpassBet = oddsDontpassBet;
+    }
+
+    public int getFieldBet() {
+        return fieldBet;
+    }
+
+    public void setFieldBetNumber(int fieldBet) {
         this.fieldBet = fieldBet;
-    }
-
-    public int getPassLine() {
-        return passLine;
-    }
-
-    public void setPassLine(int passLine) {
-        this.passLine = passLine;
-    }
-
-    public int getOddsPassLine() {
-        return oddsPassLine;
-    }
-
-    public void setOddsPassLine(int oddsPassLine) {
-        this.oddsPassLine = oddsPassLine;
-    }
-
-    public int getDontPass() {
-        return dontPass;
-    }
-
-    public void setDontPass(int dontPass) {
-        this.dontPass = dontPass;
-    }
-
-    public int getField() {
-        return field;
-    }
-
-    public void setField(int field) {
-        this.field = field;
-    }
-
-
-    //toString()
-    @Override
-    public String toString() {
-        return "Player: " +
-            "bank=" + getBank() +
-            ", passLineBet=" + getpassLineBet() +
-            ", dontPassBet=" + getDontPassBet() +
-            ", fieldBet=" + getFieldBet() +
-            ", passLine=" + getPassLine() +
-            ", dontPass=" + getDontPass() +
-            ", field=" + getField() +
-            '.';
     }
 }
