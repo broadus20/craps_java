@@ -1,21 +1,23 @@
 package com.css.craps;
 
 public class Player {
-    public static int bank = 10000;
+    //make all fields private
+    //which is the balance
+    private int bank = 10000;
 
-    //bets place
-    boolean isPasslineBetPlaced = false;
-    boolean isTherePassLineOdds = false;
-    boolean isDontPassBetPlaced = false;
-    boolean isThereDontPassOdds = false;
-    boolean isFieldBet = false;
+    //bets place (make the fields private)
+    private boolean isPasslineBetPlaced = false;
+    private boolean isTherePassLineOdds = false;
+    private boolean isDontPassBetPlaced = false;
+    private boolean isThereDontPassOdds = false;
+    private boolean isFieldBet = false;
 
     // Table Bets
-    public int passlineBet = 0;
-    public int oddsPasslineBet = 0;
-    public int dontpassBet = 0;
-    public int oddsDontpassBet = 0;
-    public int fieldBet = 0;
+    private int passlineBet = 0;
+    private int oddsPasslineBet = 0;
+    private int dontpassBet = 0;
+    private int oddsDontpassBet = 0;
+    private int fieldBet = 0;
 
     public int getBank() {
         return bank;

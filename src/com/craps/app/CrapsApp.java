@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+//app.utils library, a console.clear() (clears the console)
 
 public class CrapsApp {
     private static final String flamingoPath = "data/flamingo_hotel.txt";
@@ -58,7 +59,7 @@ public class CrapsApp {
             table.payField();
             resultNoPoint();
         }
-        else if (table.getRoll() == table.point) { // if the point is hit
+        else if (table.getRoll() == table.getPoint()) { // if the point is hit
             table.payField();
             table.pay();
             table.setPointOn(false);
@@ -159,3 +160,6 @@ public class CrapsApp {
 
     }
 }
+
+//we need to create a base package name. so com.css.craps.app
+//
