@@ -1,11 +1,12 @@
 package com.css.client;
 
 import com.craps.app.CrapsApp;
-
-class __init__ {
+//we need to change this name to Main/CrapsAppClient class (defer this for later)
+class Main {
 
     public static void main(String[] args) {
         CrapsApp app = new CrapsApp();
         app.execute();
     }
 }
+

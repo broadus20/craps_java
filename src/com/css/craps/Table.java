@@ -3,14 +3,15 @@ package com.css.craps;
 import java.util.Scanner;
 
 public class Table {
-    private static Scanner scanner = new Scanner(System.in);
-    public static Player player = new Player();
-    public Dice dice = new Dice();
+    //make fields private later
+    private Scanner scanner = new Scanner(System.in);
+    private Player player = new Player();
+    private Dice dice = new Dice();
 
 
     // Table Modifiers
-    public boolean pointOn = false;
-    public  int point = 0;
+    private boolean pointOn = false;
+    private int point = 0;
     private  int MAX = 1000;
     private  int MIN = 5;
     // TODO: Function to return odds ratio depending on point
@@ -66,7 +67,7 @@ public class Table {
             if (bet == 0){
                 validInput = true;
             }
-            else if (MIN <= bet && bet <= player.bank && bet <= MAX) {
+            else if (MIN <= bet && bet <= player.getBank() && bet <= MAX) {
                 validInput = true;
            }
             else{
@@ -218,7 +219,7 @@ public class Table {
                 }
             }
         }
-        player.bank = money;
+        player.setBank(money);
     }
 //pay-> payFieldBet
     public void payField(){
@@ -252,7 +253,7 @@ public class Table {
         layoutBets();
     }
 
-    public static void layoutBets(){
+    public void layoutBets(){
         if (player.isPasslineBetPlaced()){
             System.out.println("You have $" + player.getPasslineBet() + " on the Pass Line");
             if (player.isTherePassLineOdds()){
