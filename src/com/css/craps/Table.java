@@ -18,9 +18,28 @@ public class Table {
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
 //    public int roll;
 
+
+    /**
+     * ROLLING THE DICE
+     */
     public int getRoll() {
-        return dice.rollDice();
+        return dice.getD1And2();
     }
+
+    public void rollDice(){
+        System.out.println("Press Enter to Roll... ");
+        String input = scanner.nextLine();
+        dice.rollDice();
+
+        if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
+            System.out.println("You rolled an: " + this.getRoll());
+        }
+        else {
+            System.out.println("You rolled a: " + this.getRoll());
+        }
+        System.out.println("\n");
+    }
+
 
     public boolean isPointOn() {
         return pointOn;
@@ -30,15 +49,15 @@ public class Table {
         this.pointOn = pointOn;
     }
 
-    private int randomInt(int min, int max) {
-        int result = 0;
-
-        double rand = Math.random(); // 0.0 - 0.99
-        double scaled = (rand * (max-min + 1) + min);
-        result = (int) scaled;
-
-        return result;
-    }
+//    private int randomInt(int min, int max) {
+//        int result = 0;
+//
+//        double rand = Math.random(); // 0.0 - 0.99
+//        double scaled = (rand * (max-min + 1) + min);
+//        result = (int) scaled;
+//
+//        return result;
+//    }
 
     // Method to ask user to input amount for bet
     //changed from getBet to usersInputBet
@@ -60,7 +79,6 @@ public class Table {
             }
         }
 
-//        player.bank = player.bank - bet; previous code
         player.setBank(player.getBank()-bet);
         return bet;
     }
@@ -141,14 +159,14 @@ public class Table {
         if (player.isDontPassBetPlaced()){
             System.out.println("this is the point; " + isPointOn());
             if (isPointOn()==false){ // Point is off
-                if (getRoll() == 7 || getRoll() == 11){
+                if (dice.getD1And2() == 7 || dice.getD1And2() == 11){
                     money += player.getPasslineBet() *2;
 //                    player.passlineBet = 0;
                     player.setPasslineBet(0);
 //                    player.isPasslineBetPlaced = false;
                     player.setTherePassLineOdds(false);
                 }
-                else if (getRoll() == 2 || getRoll() == 3 || getRoll() ==12){
+                else if (dice.getD1And2()  == 2 || dice.getD1And2()  == 3 || dice.getD1And2()  ==12){
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
                     player.setTherePassLineOdds(false);
@@ -157,7 +175,7 @@ public class Table {
                 }
             }
             else { // point established payout
-                if (getRoll() == getPlayersPointNumber()){ // point hit
+                if (dice.getD1And2() == getPlayersPointNumber()){ // point hit
                     money += player.getPasslineBet() + player.getOddsPasslineBet() * oddsRatio;
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
@@ -166,7 +184,7 @@ public class Table {
                     player.setPasslineBetPlaced(false);
 //                    player.isPasslineBetPlaced = false;
                 }
-                else if (getRoll() == 7){ // 7 out
+                else if (dice.getD1And2() == 7){ // 7 out
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
                     player.setOddsPasslineBet(0);
@@ -179,12 +197,12 @@ public class Table {
         // don't passline bet exists
         if (player.isDontPassBetPlaced()){
             if (!isPointOn()){ // Point is off
-                if (getRoll() == 2 || getRoll() == 3){ // payout
+                if (dice.getD1And2() == 2 || dice.getD1And2() == 3){ // payout
                     money += player.getDontpassBet() *2;
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
-                else if (getRoll() == 7 || getRoll() == 11){
+                else if (dice.getD1And2() == 7 || dice.getD1And2()== 11){
 //                    player.dontpassBet = 0;
 //                    player.isDontPassBetPlaced = false;
                     player.setDontpassBet(0);
@@ -192,13 +210,13 @@ public class Table {
                 }
             }
             else { // point is on
-                if (getRoll() == 7){ // 7 out (win)
+                if (dice.getD1And2() == 7){ // 7 out (win)
                     money += player.getDontpassBet() + player.getOddsDontpassBet() * oddsRatio;
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
-                else if (getRoll() == getPlayersPointNumber()){ // point hit (loss)
+                else if (dice.getD1And2() == getPlayersPointNumber()){ // point hit (loss)
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
@@ -211,15 +229,15 @@ public class Table {
     public void payField(){
         int money = player.getBank();
         if (player.isFieldBet()){
-            if (getRoll()== 3 || getRoll() == 4 || getRoll() == 9 || getRoll() == 10){
+            if (dice.getD1And2()== 3 || dice.getD1And2() == 4 || dice.getD1And2()== 9 || dice.getD1And2() == 10){
                 money += player.getFieldBet() *2;
                 player.setFieldBetNumber(0);
                 player.setFieldBet(false);
-            }  else if (getRoll() == 2){
+            }  else if (dice.getD1And2() == 2){
                 money += player.getFieldBet() *3;
                 player.setFieldBetNumber(0);
                 player.setFieldBet(false);
-            } else if (getRoll() == 12){
+            } else if (dice.getD1And2() == 12){
                 money += player.getFieldBet() *4;
                 player.setFieldBetNumber(0);
                 player.setFieldBet(false);

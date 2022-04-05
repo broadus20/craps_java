@@ -5,6 +5,15 @@ public class Dice {
 
     private int d1;
     private int d2;
+    private int d1And2;
+
+    public int getD1And2() {
+        return d1And2;
+    }
+
+    public void setD1And2(int d1And2) {
+        this.d1And2 = d1And2;
+    }
 
     public int getD1() {
         return d1;
@@ -14,12 +23,13 @@ public class Dice {
         return d2;
     }
 
-    public int rollDice(){
+    public void rollDice(){
         d1 = randomInt(1,6);
         d2 = randomInt(1,6);
 
-        return d1 + d2;
+        setD1And2(d1 + d2);
     }
+
     private static int randomInt(int min, int max) {
         int result = 0;
 

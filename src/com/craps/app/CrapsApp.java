@@ -28,7 +28,7 @@ public class CrapsApp {
             // Make a bet
             promptForBet();
             // Roll Dice
-            rollDice();
+            table.rollDice();
             // outcome
             outcome();
             // Play profile
@@ -125,18 +125,19 @@ public class CrapsApp {
         }
     }
 
-    private void rollDice(){
-        System.out.println("Press Enter to Roll... ");
-        String input = scanner.nextLine();
-
-        if (table.getRoll() == 8 ||table.getRoll() == 11 ){//is there supposed to be logic in here
-            System.out.println("You rolled an: " + table.getRoll());
-        }
-        else {
-            System.out.println("You rolled a: " + table.getRoll());
-        }
-        System.out.println("\n");
-    }
+//    private void rollDice(){
+//        System.out.println("Press Enter to Roll... ");
+//        String input = scanner.nextLine();
+//        dice.rollDice();
+//
+//        if (table.getRoll() == 8 ||table.getRoll() == 11 ){//is there supposed to be logic in here
+//            System.out.println("You rolled an: " + table.getRoll());
+//        }
+//        else {
+//            System.out.println("You rolled a: " + table.getRoll());
+//        }
+//        System.out.println("\n");
+//    }
 
     private void welcome(){
         System.out.println("\n\n");
