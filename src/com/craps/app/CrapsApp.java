@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CrapsApp {
     private static final String flamingoPath = "data/flamingo_hotel.txt";
+    private static final String welcomeDicePath = "data/welcome_dice.txt";
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
@@ -146,14 +147,16 @@ public class CrapsApp {
         catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("\n\n");
-              System.out.println(
-                "  ____\n" +
-                " /\\' .\\    _____\n" +
-                "/: \\___\\  / .  /\\\n" +
-                "\\' / . / /____/..\\\n" +
-                " \\/___/  \\'  '\\  /\n" +
-                "          \\'__'\\/\n" +
-                "\n");
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(welcomeDicePath));
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("\n");
+
     }
 }
