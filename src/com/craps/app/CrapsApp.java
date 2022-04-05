@@ -4,7 +4,6 @@ import com.css.craps.Table;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
@@ -59,13 +58,13 @@ public class CrapsApp {
             table.payField();
             resultNoPoint();
         }
-        else if (table.getRoll() == table.point) { // if the point is hit
+        else if (table.rollTheDice() == table.point) { // if the point is hit
             table.payField();
             table.pay();
             table.setPointOn(false);
         }
         else { // if 7, wipe board
-            if (table.getRoll() == 7){
+            if (table.rollTheDice() == 7){
                 table.payField();
                 table.pay();
                 table.setPointOn(false);
@@ -75,16 +74,16 @@ public class CrapsApp {
 
     private void resultNoPoint(){
         // Win Case
-        if (table.getRoll() == 7 || table.getRoll() == 11){
+        if (table.rollTheDice() == 7 || table.rollTheDice() == 11){
             table.pay();
         }
         // Lose Case
-        else if (table.getRoll() == 2 || table.getRoll() == 3 || table.getRoll() == 12){
+        else if (table.rollTheDice() == 2 || table.rollTheDice() == 3 || table.rollTheDice() == 12){
             table.pay();
         }
         // Set Point
         else{
-            table.setPoint(table.getRoll());
+            table.setPoint(table.rollTheDice());
             table.setPointOn(false);
         }
     }
@@ -127,11 +126,11 @@ public class CrapsApp {
         System.out.println("Press Enter to Roll... ");
         String input = scanner.nextLine();
 
-        if (table.getRoll() == 8 ||table.getRoll() == 11 ){
-            System.out.println("You rolled an: " + table.getRoll());
+        if (table.rollTheDice() == 8 ||table.rollTheDice() == 11 ){
+            System.out.println("You rolled an: " + table.rollTheDice());
         }
         else {
-            System.out.println("You rolled a: " + table.getRoll());
+            System.out.println("You rolled a: " + table.rollTheDice());
         }
         System.out.println("\n");
     }
