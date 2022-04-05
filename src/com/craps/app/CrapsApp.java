@@ -2,14 +2,20 @@ package com.craps.app;
 
 import com.css.craps.Table;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class CrapsApp {
+    private static final String flamingoPath = "data/flamingo_hotel.txt";
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
-    public void execute(){
+    public void execute(){      // error: while statement cannot complete without throwing exception
         welcome();
         while (true){
             main();
@@ -131,9 +137,17 @@ public class CrapsApp {
 
     private void welcome(){
         System.out.println("\n\n");
-        System.out.println("T H E   F L A M I N G O   H O T E L");
-        System.out.println("------------------------------------");
-        System.out.println(
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(flamingoPath));
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("\n\n");
+              System.out.println(
                 "  ____\n" +
                 " /\\' .\\    _____\n" +
                 "/: \\___\\  / .  /\\\n" +
