@@ -17,7 +17,7 @@ public class Table {
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
 //    public int roll;
 
-    public int rollTheDice() {
+    public int getRoll() {
         return dice.rollDice();
     }
 
@@ -147,14 +147,14 @@ public class Table {
         // check passline bet exists
         if (player.isDontPassBetPlaced()){
             if (!isPointOn()){ // Point is off
-                if (rollTheDice() == 7 || rollTheDice() == 11){
+                if (getRoll() == 7 || getRoll() == 11){
                     money += player.getPasslineBet() *2;
 //                    player.passlineBet = 0;
                     player.setPasslineBet(0);
 //                    player.isPasslineBetPlaced = false;
                     player.setTherePassLineOdds(false);
                 }
-                else if (rollTheDice() == 2 || rollTheDice() == 3 || rollTheDice() ==12){
+                else if (getRoll() == 2 || getRoll() == 3 || getRoll() ==12){
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
                     player.setTherePassLineOdds(false);
@@ -163,7 +163,7 @@ public class Table {
                 }
             }
             else { // point established payout
-                if (rollTheDice() == point){ // point hit
+                if (getRoll() == point){ // point hit
                     money += player.getPasslineBet() + player.getOddsPasslineBet() * oddsRatio;
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
@@ -172,7 +172,7 @@ public class Table {
                     player.setPasslineBetPlaced(false);
 //                    player.isPasslineBetPlaced = false;
                 }
-                else if (rollTheDice() == 7){ // 7 out
+                else if (getRoll() == 7){ // 7 out
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
                     player.setOddsPasslineBet(0);
@@ -185,12 +185,12 @@ public class Table {
         // don't passline bet exists
         if (player.isDontPassBetPlaced()){
             if (!isPointOn()){ // Point is off
-                if (rollTheDice() == 2 || rollTheDice() == 3){ // payout
+                if (getRoll() == 2 || getRoll() == 3){ // payout
                     money += player.getDontpassBet() *2;
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
-                else if (rollTheDice() == 7 || rollTheDice() == 11){
+                else if (getRoll() == 7 || getRoll() == 11){
 //                    player.dontpassBet = 0;
 //                    player.isDontPassBetPlaced = false;
                     player.setDontpassBet(0);
@@ -198,13 +198,13 @@ public class Table {
                 }
             }
             else { // point is on
-                if (rollTheDice() == 7){ // 7 out (win)
+                if (getRoll() == 7){ // 7 out (win)
                     money += player.getDontpassBet() + player.getOddsDontpassBet() * oddsRatio;
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
-                else if (rollTheDice() == point){ // point hit (loss)
+                else if (getRoll() == point){ // point hit (loss)
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
@@ -217,15 +217,15 @@ public class Table {
     public void payField(){
         int money = player.getBank();
         if (player.isFieldBet()){
-            if (rollTheDice()== 3 || rollTheDice() == 4 || rollTheDice() == 9 || rollTheDice() == 10){
+            if (getRoll()== 3 || getRoll() == 4 || getRoll() == 9 || getRoll() == 10){
                 money += player.getFieldBet() *2;
                 player.setFieldBetNumber(0);
                 player.setFieldBet(false);
-            }  else if (rollTheDice() == 2){
+            }  else if (getRoll() == 2){
                 money += player.getFieldBet() *3;
                 player.setFieldBetNumber(0);
                 player.setFieldBet(false);
-            } else if (rollTheDice() == 12){
+            } else if (getRoll() == 12){
                 money += player.getFieldBet() *4;
                 player.setFieldBetNumber(0);
                 player.setFieldBet(false);
@@ -236,6 +236,8 @@ public class Table {
         }
 //        player.bank = money;
         player.setBank(money);
+
+
     }
 
 
