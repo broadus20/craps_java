@@ -59,16 +59,18 @@ public class CrapsApp {
             table.payField();
             resultNoPoint();
         }
-        else if (table.getRoll() == table.getPoint()) { // if the point is hit
+        else if (table.getRoll() == table.getPlayersPointNumber()) { // if the point is hit
             table.payField();
             table.pay();
             table.setPointOn(false);
+            table.setPlayersPointNumber(0);
         }
         else { // if 7, wipe board
             if (table.getRoll() == 7){
                 table.payField();
                 table.pay();
                 table.setPointOn(false);
+                table.setPlayersPointNumber(0);
             }
         }
     }
@@ -84,8 +86,8 @@ public class CrapsApp {
         }
         // Set Point
         else{
-            table.setPoint(table.getRoll());
-            table.setPointOn(false);
+            table.setPlayersPointNumber(table.getRoll());
+            table.setPointOn(true);
         }
     }
 
@@ -127,7 +129,7 @@ public class CrapsApp {
         System.out.println("Press Enter to Roll... ");
         String input = scanner.nextLine();
 
-        if (table.getRoll() == 8 ||table.getRoll() == 11 ){
+        if (table.getRoll() == 8 ||table.getRoll() == 11 ){//is there supposed to be logic in here
             System.out.println("You rolled an: " + table.getRoll());
         }
         else {

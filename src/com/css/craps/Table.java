@@ -30,14 +30,6 @@ public class Table {
         this.pointOn = pointOn;
     }
 
-    public int getPoint() {
-        return point;
-    }
-
-    public void setPoint(int point) {
-        this.point = point;
-    }
-
     private int randomInt(int min, int max) {
         int result = 0;
 
@@ -147,7 +139,8 @@ public class Table {
         int money = player.getBank();
         // check passline bet exists
         if (player.isDontPassBetPlaced()){
-            if (!isPointOn()){ // Point is off
+            System.out.println("this is the point; " + isPointOn());
+            if (isPointOn()==false){ // Point is off
                 if (getRoll() == 7 || getRoll() == 11){
                     money += player.getPasslineBet() *2;
 //                    player.passlineBet = 0;
@@ -164,7 +157,7 @@ public class Table {
                 }
             }
             else { // point established payout
-                if (getRoll() == point){ // point hit
+                if (getRoll() == getPlayersPointNumber()){ // point hit
                     money += player.getPasslineBet() + player.getOddsPasslineBet() * oddsRatio;
                     player.setPasslineBet(0);
 //                    player.passlineBet = 0;
@@ -205,7 +198,7 @@ public class Table {
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
-                else if (getRoll() == point){ // point hit (loss)
+                else if (getRoll() == getPlayersPointNumber()){ // point hit (loss)
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
@@ -237,8 +230,6 @@ public class Table {
         }
 //        player.bank = money;
         player.setBank(money);
-
-
     }
 
 
