@@ -20,7 +20,7 @@ public class CrapsApp {
 
     public void execute() throws IOException {      // error: while statement cannot complete without throwing exception
         welcome();
-        System.out.println("Press [?] at any time if you need help");
+        System.out.println("Press [?] for How to play");
         while (true){
             main();
         }

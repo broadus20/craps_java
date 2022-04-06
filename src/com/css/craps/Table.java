@@ -3,17 +3,17 @@ package com.css.craps;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Table {
+    private final String baseDiceDisplayPath = "data/dice_";
 
-//    private final List<String> diceImages = new ArrayList<>();
+    //make fields private later
     private Scanner scanner = new Scanner(System.in);
     private Player player = new Player();
     private Dice dice = new Dice();
+
 
     // Table Modifiers
     private boolean pointOn = false;
@@ -22,13 +22,8 @@ public class Table {
     private  int MIN = 5;
     // TODO: Function to return odds ratio depending on point
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
+//    public int roll;
 
-//    public void loadDiceImages() throws IOException {
-//        for (int i = 1; i <= 6; i++) {
-//            String diceImage = Files.readString(Path.of("data/dice_" + i + ".txt"));
-//            diceImages.add(diceImage);
-//        }
-//    }
 
     /**
      * ROLLING THE DICE
@@ -48,11 +43,18 @@ public class Table {
         else {
             System.out.println("You rolled a: " + this.getRoll());
         }
-        dice.show();
-
         System.out.println("\n");
         System.out.println("[" + dice.getD1() + "] and [" + dice.getD2() + "]");
-        System.out.println("\n");
+        try {
+            Files.lines(Path.of(baseDiceDisplayPath + dice.getD1() + ".txt"))
+                .forEach(System.out::println);
+            Files.lines(Path.of(baseDiceDisplayPath + dice.getD2() + ".txt"))
+                .forEach(System.out::println);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
@@ -64,6 +66,18 @@ public class Table {
         this.pointOn = pointOn;
     }
 
+//    private int randomInt(int min, int max) {
+//        int result = 0;
+//
+//        double rand = Math.random(); // 0.0 - 0.99
+//        double scaled = (rand * (max-min + 1) + min);
+//        result = (int) scaled;
+//
+//        return result;
+//    }
+
+    // Method to ask user to input amount for bet
+    //changed from getBet to usersInputBet
     public int getBet(){
         int bet = 0;
 
@@ -249,8 +263,11 @@ public class Table {
                 player.setFieldBet(false);
             }
         }
+//        player.bank = money;
         player.setBank(money);
     }
+
+
 
     public void layout() {
         System.out.println("You have $" + displayPlayerBank() + " in the bank");
@@ -272,6 +289,7 @@ public class Table {
         }
     }
 
+
     //change this from getBank to displayBank, then created a getter method for the Player's bank method called getBank
     public int displayPlayerBank() {
         return player.getBank();
@@ -285,5 +303,6 @@ public class Table {
         //this was originally Table.point. after making things non-static, I changed it to this.point
         this.point = point;
     }
+
 
 }
