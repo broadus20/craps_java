@@ -1,6 +1,6 @@
-package com.css.client;
+package com.css.craps.client;
 
-import com.craps.app.CrapsApp;
+import com.css.craps.app.CrapsApp;
 
 import java.io.IOException;
 

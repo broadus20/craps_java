@@ -3,14 +3,14 @@ package com.css.craps;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Table {
 
-    private final List<String> diceImages = new ArrayList<>();
+//    private final List<String> diceImages = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private Player player = new Player();
     private Dice dice = new Dice();
@@ -23,12 +23,12 @@ public class Table {
     // TODO: Function to return odds ratio depending on point
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
 
-    public void loadDiceImages() throws IOException {
-        for (int i = 1; i <= 6; i++) {
-            String diceImage = Files.readString(Path.of("data/dice_" + i + ".txt"));
-            diceImages.add(diceImage);
-        }
-    }
+//    public void loadDiceImages() throws IOException {
+//        for (int i = 1; i <= 6; i++) {
+//            String diceImage = Files.readString(Path.of("data/dice_" + i + ".txt"));
+//            diceImages.add(diceImage);
+//        }
+//    }
 
     /**
      * ROLLING THE DICE
@@ -48,11 +48,11 @@ public class Table {
         else {
             System.out.println("You rolled a: " + this.getRoll());
         }
+        dice.show();
+
         System.out.println("\n");
         System.out.println("[" + dice.getD1() + "] and [" + dice.getD2() + "]");
         System.out.println("\n");
-        System.out.println(diceImages.get(dice.getD1() - 1));
-        System.out.println(diceImages.get(dice.getD2() - 1));
     }
 
 
