@@ -232,8 +232,6 @@ public class Table {
         player.setBank(money);
     }
 
-
-
     public void layout() {
         System.out.println("You have $" + displayPlayerBank() + " in the bank");
         layoutBets();
@@ -254,7 +252,6 @@ public class Table {
         }
     }
 
-
     //change this from getBank to displayBank, then created a getter method for the Player's bank method called getBank
     public int displayPlayerBank() {
         return player.getBank();
@@ -268,6 +265,4 @@ public class Table {
         //this was originally Table.point. after making things non-static, I changed it to this.point
         this.point = point;
     }
-
-
 }
