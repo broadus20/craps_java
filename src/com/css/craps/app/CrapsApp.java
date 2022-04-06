@@ -18,8 +18,9 @@ public class CrapsApp {
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
-    public void execute() throws IOException {      // error: while statement cannot complete without throwing exception
+    public void execute(){      // error: while statement cannot complete without throwing exception
         welcome();
+        System.out.println("Press [x] to leave table");
         System.out.println("Press [?] for How to play");
         while (true){
             main();
@@ -102,6 +103,10 @@ public class CrapsApp {
         while (!validInput) {
             System.out.println("Would you like to place a bet? [y/n] ");
             String input = scanner.nextLine();
+            if (input.equals("x") || input.equals("X")) {
+                System.out.println("Come back soon!");
+                System.exit(0);
+            }
             if (input.equals("y") || input.equals("Y")) {
                 clearScreen();
                 table.bet();
@@ -136,6 +141,10 @@ public class CrapsApp {
         while (!validInput) {
             System.out.println("Would you like to place another bet? [y/n] ");
             String input = scanner.nextLine();
+            if (input.equals("x") || input.equals("X")) {
+                System.out.println("Come back any time");
+                System.exit(0);
+            }
             if (input.equals("y") || input.equals("Y")) {
                 table.bet();
             } else if (input.equals("n") || input.equals("N")){
