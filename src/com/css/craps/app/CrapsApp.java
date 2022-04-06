@@ -1,4 +1,4 @@
-package com.craps.app;
+package com.css.craps.app;
 
 import com.css.craps.Table;
 
@@ -18,7 +18,7 @@ public class CrapsApp {
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
-    public void execute(){      // error: while statement cannot complete without throwing exception
+    public void execute() throws IOException {      // error: while statement cannot complete without throwing exception
         welcome();
         System.out.println("Press [?] at any time if you need help");
         while (true){

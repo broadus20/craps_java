@@ -1,17 +1,13 @@
 package com.css.craps;
 
-import com.craps.app.CrapsApp;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.Scanner;
 
 public class Table {
     private final String baseDiceDisplayPath = "data/dice_";
-    private static final String betsInfoPath = "data/help/bets_info.txt";
 
     //make fields private later
     private Scanner scanner = new Scanner(System.in);
@@ -48,22 +44,6 @@ public class Table {
             System.out.println("You rolled a: " + this.getRoll());
         }
         System.out.println("\n");
-
-        // Dealer Sayings
-        if (this.getRoll() == 7){
-            if (!this.pointOn){
-                System.out.println("Winner 7! Winner 7!");
-            } else {
-                System.out.println("7 Out!");
-            }
-        } else if (this.getRoll() == 2){
-            System.out.println("SNAKE EYES");
-        } else if (this.getRoll() == 3){
-            System.out.println("ACE DEUCE");
-        } else if (this.getRoll() == 11){
-            System.out.println("YO LEVEN");
-        }
-
         System.out.println("[" + dice.getD1() + "] and [" + dice.getD2() + "]");
         try {
             Files.lines(Path.of(baseDiceDisplayPath + dice.getD1() + ".txt"))
@@ -98,14 +78,14 @@ public class Table {
 
     // Method to ask user to input amount for bet
     //changed from getBet to usersInputBet
-    public int getBet() throws InterruptedException {
+    public int getBet(){
         int bet = 0;
 
         boolean validInput = false;
         while (!validInput) {
+            System.out.println("Bet___?  ");
             bet = scanner.nextInt(); //BLOCKS for input
             if (bet == 0){
-                System.out.println("Bet cleared!");
                 validInput = true;
             }
             else if (MIN <= bet && bet <= player.getBank() && bet <= MAX) {
@@ -123,64 +103,25 @@ public class Table {
     // General method for placing bets
     //name change from bet -> playerChoosesWhatTypeOfBet
     public void bet(){
-        System.out.println("Type ? for Help \n");
         System.out.println("Type 1 for Passline bet");
         System.out.println("Type 2 for Don't Pass bet");
         System.out.println("Type 3 for Field bet");
-
         boolean validInput = false;
         while (!validInput) {
             try {
-                String betType; // Get type of bet to be placed
-                betType = scanner.nextLine(); // 1 will be passline bet
-                if (betType.equals("1")) {
-                    System.out.println("\n");
-                    layout();
-                    System.out.println("\n");
-                    System.out.println("Passline Bet");
-                    System.out.println("Bet____?  ");
+                int betType; // Get type of bet to be placed
+                betType = scanner.nextInt(); // 1 will be passline bet
+                if (betType == 1) {
                     passlineBet();
                     validInput = true;
-                } else if (betType.equals("2")) { // 2 will be don't pass bet
-                    System.out.println("\n");
-                    layout();
-                    System.out.println("\n");
-                    System.out.println("Don't Pass Bet");
-                    System.out.println("Bet____?  ");
+                } else if (betType == 2) { // 2 will be don't pass bet
                     dontpassBet();
                     validInput = true;
-                } else if (betType.equals("3")) { // field bet
-                    System.out.println("\n");
-                    layout();
-                    System.out.println("\n");
-                    System.out.println("Field Bet");
-                    System.out.println("Bet____?  ");
+                } else if(betType == 3){ // field bet
                     fieldBet();
                     validInput = true;
-                } else if (betType.equals("?")){ // [?] Betting Help
-                    System.out.println("\n\n");
-                    try {
-                        List<String> lines = Files.readAllLines(Paths.get(betsInfoPath));
-                        for (String line : lines) {
-                            System.out.println(line);
-                        }
-
-                        System.out.println("Type 1 for Passline bet");
-                        System.out.println("Type 2 for Don't Pass bet");
-                        System.out.println("Type 3 for Field bet");
-                        System.out.println("Type ? for Help");
-                    }
-                    catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("\n");
                 } else {
-                    System.out.println(betType + " is not a valid bet, please try again. \n\n");
-
-                    System.out.println("Type 1 for Passline bet");
-                    System.out.println("Type 2 for Don't Pass bet");
-                    System.out.println("Type 3 for Field bet");
-                    System.out.println("Type ? for Help");
+                    System.out.println(betType + " is not a valid bet, please try again.");
                 }
             }
             catch (Exception e){
@@ -191,7 +132,7 @@ public class Table {
 
     //fieldBet -> playerPlacesFieldBet
 
-    public void fieldBet() throws InterruptedException {
+    public void fieldBet(){
 //        player.isFieldBet = true;
         player.setFieldBet(true);
 //        player.fieldBet = getBet();
@@ -200,7 +141,7 @@ public class Table {
 
     //dontpassBet -> playerPlacesDontpassBet
 
-    public void dontpassBet() throws InterruptedException {
+    public void dontpassBet(){
 //        if (pointOn != true){
         if (isPointOn() != true){
 //            player.isDontPassBetPlaced = true;
@@ -215,7 +156,7 @@ public class Table {
 
 //    passlineBet -> playerPLacesPasslineBet
 
-    public void passlineBet() throws InterruptedException {
+    public void passlineBet(){
         if (pointOn != true) {
 //            player.isPasslineBetPlaced = true;
             player.setPasslineBetPlaced(true);
