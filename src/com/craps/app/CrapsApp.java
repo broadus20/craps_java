@@ -2,6 +2,7 @@ package com.craps.app;
 
 import com.css.craps.Table;
 
+import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,11 +14,13 @@ import java.util.concurrent.TimeUnit;
 public class CrapsApp {
     private static final String flamingoPath = "data/flamingo_hotel.txt";
     private static final String welcomeDicePath = "data/welcome_dice.txt";
+    private static final String rulesPath = "data/help/rules.txt";
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
     public void execute(){      // error: while statement cannot complete without throwing exception
         welcome();
+        System.out.println("Press [?] at any time if you need help");
         while (true){
             main();
         }
@@ -102,12 +105,24 @@ public class CrapsApp {
                 validInput = true;
             } else if (input.equals("n") || input.equals("N")){
                 validInput = true;
-            }
-            else {
+            } else if (input.equals("?")){ // [?] Help Prompter
+                System.out.println("\n\n");
+                try {
+                    List<String> lines = Files.readAllLines(Paths.get(rulesPath));
+                    for (String line : lines) {
+                        System.out.println(line);
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\n");
+            } else {
             System.out.println(input + " is not a valid input. Please try again");
             }
         }
     }
+
 
     private void multiBet(){
         boolean validInput = false;

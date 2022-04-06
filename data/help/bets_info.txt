@@ -1,0 +1,14 @@
+_____________________________________________________
+
+Passline Bet:
+Wins on 7 or 11 on come out roll
+Wins on point
+
+Don't Pass Bet:
+Wins on 2 and 3 on come out roll
+Wins on Seven after come out
+
+Field: - 1x Bet
+Wins on 2 3 4 9 10 11 12
+
+____________________________________________________

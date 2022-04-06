@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Scanner;
 
 public class Table {
     private final String baseDiceDisplayPath = "data/dice_";
+    private static final String betsInfoPath = "data/help/bets_info.txt";
 
     //make fields private later
     private Scanner scanner = new Scanner(System.in);
@@ -86,6 +88,7 @@ public class Table {
             System.out.println("Bet___?  ");
             bet = scanner.nextInt(); //BLOCKS for input
             if (bet == 0){
+                System.out.println("Bet cleared!");
                 validInput = true;
             }
             else if (MIN <= bet && bet <= player.getBank() && bet <= MAX) {
@@ -106,20 +109,38 @@ public class Table {
         System.out.println("Type 1 for Passline bet");
         System.out.println("Type 2 for Don't Pass bet");
         System.out.println("Type 3 for Field bet");
+        System.out.println("Type ? for Help");
         boolean validInput = false;
         while (!validInput) {
             try {
-                int betType; // Get type of bet to be placed
-                betType = scanner.nextInt(); // 1 will be passline bet
-                if (betType == 1) {
+                String betType; // Get type of bet to be placed
+                betType = scanner.nextLine(); // 1 will be passline bet
+                if (betType.equals("1")) {
                     passlineBet();
                     validInput = true;
-                } else if (betType == 2) { // 2 will be don't pass bet
+                } else if (betType.equals("2")) { // 2 will be don't pass bet
                     dontpassBet();
                     validInput = true;
-                } else if(betType == 3){ // field bet
+                } else if (betType.equals("3")) { // field bet
                     fieldBet();
                     validInput = true;
+                } else if (betType.equals("?")){ // [?] Betting Help
+                    System.out.println("\n\n");
+                    try {
+                        List<String> lines = Files.readAllLines(Paths.get(betsInfoPath));
+                        for (String line : lines) {
+                            System.out.println(line);
+                        }
+
+                        System.out.println("Type 1 for Passline bet");
+                        System.out.println("Type 2 for Don't Pass bet");
+                        System.out.println("Type 3 for Field bet");
+                        System.out.println("Type ? for Help");
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("\n");
                 } else {
                     System.out.println(betType + " is not a valid bet, please try again.");
                 }
