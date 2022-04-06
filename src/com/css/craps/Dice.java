@@ -39,11 +39,12 @@ public class Dice {
         List<String> d1Lines = Arrays.asList(d1Image.split("\\n"));
         List<String> d2Lines = Arrays.asList(d2Image.split("\\n"));
 
+        System.out.println("[" + this.getD1() + "] and [" + this.getD2() + "]");
+
         for (int i = 0; i <d1Lines.size(); i++) {
             System.out.println(d1Lines.get(i) + "     " + d2Lines.get(i));
         }
     }
-
 
     public int getD1And2() {
         return d1And2;

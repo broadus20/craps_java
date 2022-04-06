@@ -4,7 +4,6 @@ import com.css.craps.app.CrapsApp;
 
 import java.io.IOException;
 
-//we need to change this name to Main/CrapsAppClient class (defer this for later)
 class Main {
 
     public static void main(String[] args) throws IOException {

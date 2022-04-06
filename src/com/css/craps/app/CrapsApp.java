@@ -171,6 +171,3 @@ public class CrapsApp {
 
     }
 }
-
-//we need to create a base package name. so com.css.craps.app
-//

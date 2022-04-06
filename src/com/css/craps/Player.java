@@ -1,7 +1,6 @@
 package com.css.craps;
 
 public class Player {
-    //make all fields private
     //which is the balance
     private int bank = 10000;
 
