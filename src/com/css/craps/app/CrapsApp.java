@@ -130,16 +130,16 @@ public class CrapsApp {
                 System.out.println("\n");
             } else {
                 clearScreen();
-            System.out.println(input + " is not a valid input. Please try again");
+            System.out.println("not a valid input. Please try again");
             }
         }
     }
 
 
     private void multiBet(){
-        boolean validInput = false;
+       boolean validInput = false;
         while (!validInput) {
-            System.out.println("Would you like to place another bet? [y/n] ");
+            System.out.println("\nWould you like to place another bet? [y/n] ");
             String input = scanner.nextLine();
             if (input.equals("x") || input.equals("X")) {
                 System.out.println("Come back any time");
@@ -149,9 +149,21 @@ public class CrapsApp {
                 table.bet();
             } else if (input.equals("n") || input.equals("N")){
                 validInput = true;
-            }
-            else {
-                System.out.println(input + " is not a valid input. Please try again");
+            } else if (input.equals("?")){ // [?] Help Prompter
+                clearScreen();
+                System.out.println("\n\n");
+                try {
+                    List<String> lines = Files.readAllLines(Paths.get(rulesPath));
+                    for (String line : lines) {
+                        System.out.println(line);
+                    }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("\n");
+            } else {
+                System.out.println("is not a valid input. Please try again");
             }
         }
     }
