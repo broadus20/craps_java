@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Table {
     private final String baseDiceDisplayPath = "data/dice_";
@@ -34,7 +35,7 @@ public class Table {
         return dice.getD1And2();
     }
 
-    public void rollDice(){
+    public void rollDice() throws InterruptedException {
         System.out.println("Press Enter to Roll... ");
         String input = scanner.nextLine();
 
@@ -44,6 +45,7 @@ public class Table {
         }
 
         dice.rollDice();
+        TimeUnit.SECONDS.sleep(2);
         dice.show();
         if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
             System.out.println("You rolled an: " + this.getRoll());

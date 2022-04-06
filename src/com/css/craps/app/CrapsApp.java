@@ -18,7 +18,7 @@ public class CrapsApp {
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
 
-    public void execute(){      // error: while statement cannot complete without throwing exception
+    public void execute() throws InterruptedException {      // error: while statement cannot complete without throwing exception
         welcome();
         System.out.println("Press [x] to leave table");
         System.out.println("Press [?] for How to play");
@@ -156,7 +156,7 @@ public class CrapsApp {
         }
     }
 
-    private void welcome(){
+    private void welcome() throws InterruptedException {
         System.out.println("\n\n");
         try {
             List<String> lines = Files.readAllLines(Paths.get(flamingoPath));
@@ -176,7 +176,7 @@ public class CrapsApp {
         catch (IOException e) {
             e.printStackTrace();
         }
+        TimeUnit.SECONDS.sleep(2);
         System.out.println("\n");
-
     }
 }
