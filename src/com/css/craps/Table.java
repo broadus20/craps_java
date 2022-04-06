@@ -46,13 +46,13 @@ public class Table {
 
         dice.rollDice();
         dice.show();
-        TimeUnit.SECONDS.sleep(1);
         if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
             System.out.println("You rolled an: " + this.getRoll());
         }
         else {
             System.out.println("You rolled a: " + this.getRoll());
         }
+        TimeUnit.SECONDS.sleep(1);
         System.out.println("\n");
     }
 
