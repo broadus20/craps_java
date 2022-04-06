@@ -1,16 +1,10 @@
 package com.css.craps;
 
-import com.css.craps.app.CrapsApp;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Table {
-    private final String baseDiceDisplayPath = "data/dice_";
+//    private final String baseDiceDisplayPath = "data/dice_";
 
     //make fields private later
     private Scanner scanner = new Scanner(System.in);
@@ -25,8 +19,6 @@ public class Table {
     private  int MIN = 5;
     // TODO: Function to return odds ratio depending on point
     private double oddsRatio = 0.0; // (6,8)[6/5] - (5,9)[3/2] - (4,10)[2/1]
-//    public int roll;
-
 
     /**
      * ROLLING THE DICE
@@ -45,7 +37,7 @@ public class Table {
         }
 
         dice.rollDice();
-        dice.show();
+
         if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
             System.out.println("You rolled an: " + this.getRoll());
         }
@@ -54,6 +46,8 @@ public class Table {
         }
         TimeUnit.SECONDS.sleep(1);
         System.out.println("\n");
+
+        dice.show();
     }
 
 
@@ -64,16 +58,6 @@ public class Table {
     public void setPointOn(boolean pointOn) {
         this.pointOn = pointOn;
     }
-
-//    private int randomInt(int min, int max) {
-//        int result = 0;
-//
-//        double rand = Math.random(); // 0.0 - 0.99
-//        double scaled = (rand * (max-min + 1) + min);
-//        result = (int) scaled;
-//
-//        return result;
-//    }
 
     // Method to ask user to input amount for bet
     //changed from getBet to usersInputBet
@@ -184,18 +168,13 @@ public class Table {
             System.out.println("this is the point; " + isPointOn());
             if (isPointOn()==false){ // Point is off
                 if (dice.getD1And2() == 7 || dice.getD1And2() == 11){
-                    money += player.getPasslineBet() *2;
-//                    player.passlineBet = 0;
+                    money += player.getPasslineBet() * 2;
                     player.setPasslineBet(0);
-//                    player.isPasslineBetPlaced = false;
                     player.setTherePassLineOdds(false);
                 }
-                else if (dice.getD1And2()  == 2 || dice.getD1And2()  == 3 || dice.getD1And2()  ==12){
+                else if (dice.getD1And2()  == 2 || dice.getD1And2()  == 3 || dice.getD1And2() == 12) {
                     player.setPasslineBet(0);
-//                    player.passlineBet = 0;
                     player.setTherePassLineOdds(false);
-
-//                    player.isPasslineBetPlaced = false;
                 }
             }
             else { // point established payout
