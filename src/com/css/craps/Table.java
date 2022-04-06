@@ -36,7 +36,7 @@ public class Table {
         System.out.println("Press Enter to Roll... ");
         String input = scanner.nextLine();
         dice.rollDice();
-
+        dice.show();
         if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
             System.out.println("You rolled an: " + this.getRoll());
         }
@@ -44,17 +44,6 @@ public class Table {
             System.out.println("You rolled a: " + this.getRoll());
         }
         System.out.println("\n");
-        System.out.println("[" + dice.getD1() + "] and [" + dice.getD2() + "]");
-        try {
-            Files.lines(Path.of(baseDiceDisplayPath + dice.getD1() + ".txt"))
-                .forEach(System.out::println);
-            Files.lines(Path.of(baseDiceDisplayPath + dice.getD2() + ".txt"))
-                .forEach(System.out::println);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
 
