@@ -55,6 +55,7 @@ public class Table {
         System.out.println(diceImages.get(dice.getD2() - 1));
     }
 
+
     public boolean isPointOn() {
         return pointOn;
     }
