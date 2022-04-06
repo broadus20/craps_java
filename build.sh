@@ -8,7 +8,7 @@
 #     javac -d classes src/com/games/blackjack/client/*.java src/com/games/blackjack/controller/*.java src/com/games/blackjack/domain/*.java
 
 #javac -d classes -classpath "lib/*" src/com/games/blackjack/client/*.java src/com/games/blackjack/controller/*.java src/com/games/blackjack/domain/*.java
-     javac -d classes src/com/css/client/*.java src/com/css/craps/*.java src/com/craps/app/*.java
+javac -d classes src/com/css/client/*.java src/com/css/craps/*.java src/com/craps/app/*.java
 
 
 #     Build the application JAR.
@@ -17,7 +17,7 @@
 #     nor are any resource files, e.g., config files, data files, banner.txt, etc.
 
 #jar --create --file blackjack-1.0.jar -C classes .
- jar --create --file craps-1.0.jar -C classes .
+jar --create --file craps-1.0.jar -C classes .
 
 
 #     Create the Javadoc.
