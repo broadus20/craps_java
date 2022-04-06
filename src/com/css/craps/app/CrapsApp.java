@@ -1,12 +1,10 @@
-package com.craps.app;
+package com.css.craps.app;
 
 import com.css.craps.Table;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -20,7 +18,6 @@ public class CrapsApp {
 
     public void execute() throws IOException {      // error: while statement cannot complete without throwing exception
         welcome();
-        table.loadDiceImages();
         while (true){
             main();
         }

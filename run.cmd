@@ -7,4 +7,4 @@ rem   java -classpath blackjack-1.0.jar com.games.blackjack.client.Main
 rem   Note that your application JAR stays on the classpath, regardless of whether you're using additional libraries or not.
 
 @REM java -classpath blackjack-1.0.jar;"lib\*" com.games.blackjack.client.Main
-java -classpath craps-1.0.jar com.css.client.Main
+java -classpath craps-1.0.jar Main
