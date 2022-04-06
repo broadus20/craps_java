@@ -1,8 +1,14 @@
 package com.css.craps;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Table {
+    private final String baseDiceDisplayPath = "data/dice_";
+
     //make fields private later
     private Scanner scanner = new Scanner(System.in);
     private Player player = new Player();
@@ -38,6 +44,17 @@ public class Table {
             System.out.println("You rolled a: " + this.getRoll());
         }
         System.out.println("\n");
+        System.out.println("[" + dice.getD1() + "] and [" + dice.getD2() + "]");
+        try {
+            Files.lines(Path.of(baseDiceDisplayPath + dice.getD1() + ".txt"))
+                .forEach(System.out::println);
+            Files.lines(Path.of(baseDiceDisplayPath + dice.getD2() + ".txt"))
+                .forEach(System.out::println);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
