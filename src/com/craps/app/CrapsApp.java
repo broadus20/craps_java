@@ -41,6 +41,9 @@ public class CrapsApp {
             e.printStackTrace();
         }
     }
+    public static void clearScreen() {
+        System.out.println(System.lineSeparator().repeat(50));
+    }
 
     private void layout() throws InterruptedException {
         TimeUnit.SECONDS.sleep(1);
@@ -100,12 +103,15 @@ public class CrapsApp {
             System.out.println("Would you like to place a bet? [y/n] ");
             String input = scanner.nextLine();
             if (input.equals("y") || input.equals("Y")) {
+                clearScreen();
                 table.bet();
                 multiBet();
                 validInput = true;
             } else if (input.equals("n") || input.equals("N")){
+                clearScreen();
                 validInput = true;
             } else if (input.equals("?")){ // [?] Help Prompter
+                clearScreen();
                 System.out.println("\n\n");
                 try {
                     List<String> lines = Files.readAllLines(Paths.get(rulesPath));
@@ -118,6 +124,7 @@ public class CrapsApp {
                 }
                 System.out.println("\n");
             } else {
+                clearScreen();
             System.out.println(input + " is not a valid input. Please try again");
             }
         }
