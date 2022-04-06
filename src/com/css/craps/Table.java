@@ -1,6 +1,7 @@
 package com.css.craps;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Table {
 //    private final String baseDiceDisplayPath = "data/dice_";
@@ -26,9 +27,15 @@ public class Table {
         return dice.getD1And2();
     }
 
-    public void rollDice(){
+    public void rollDice() throws InterruptedException {
         System.out.println("Press Enter to Roll... ");
         String input = scanner.nextLine();
+
+        if (input.equals("x") || input.equals("X")) {
+            System.out.println("Come back any time");
+            System.exit(0);
+        }
+
         dice.rollDice();
 
         if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
@@ -37,6 +44,7 @@ public class Table {
         else {
             System.out.println("You rolled a: " + this.getRoll());
         }
+        TimeUnit.SECONDS.sleep(1);
         System.out.println("\n");
 
         dice.show();
@@ -58,7 +66,7 @@ public class Table {
 
         boolean validInput = false;
         while (!validInput) {
-            System.out.println("Bet___?  ");
+            System.out.println("\nBet____?  ");
             bet = scanner.nextInt(); //BLOCKS for input
             if (bet == 0){
                 validInput = true;
@@ -84,19 +92,28 @@ public class Table {
         boolean validInput = false;
         while (!validInput) {
             try {
-                int betType; // Get type of bet to be placed
-                betType = scanner.nextInt(); // 1 will be passline bet
-                if (betType == 1) {
+                String betType; // Get type of bet to be placed
+                betType = scanner.nextLine(); // 1 will be passline bet
+                if (betType.equals("x") || betType.equals("X")) {
+                    System.out.println("Come back any time!");
+                    System.exit(0);
+                }
+                if (betType.equals("1")) {
                     passlineBet();
                     validInput = true;
-                } else if (betType == 2) { // 2 will be don't pass bet
+                } else if (betType.equals("2")) { // 2 will be don't pass bet
                     dontpassBet();
                     validInput = true;
-                } else if(betType == 3){ // field bet
+                } else if(betType.equals("3")){ // field bet
                     fieldBet();
                     validInput = true;
                 } else {
+                    CrapsApp.clearScreen();
+
                     System.out.println(betType + " is not a valid bet, please try again.");
+                    System.out.println("\n\nType 1 for Passline bet");
+                    System.out.println("Type 2 for Don't Pass bet");
+                    System.out.println("Type 3 for Field bet");
                 }
             }
             catch (Exception e){
@@ -117,7 +134,6 @@ public class Table {
     //dontpassBet -> playerPlacesDontpassBet
 
     public void dontpassBet(){
-//        if (pointOn != true){
         if (isPointOn() != true){
 //            player.isDontPassBetPlaced = true;
             player.setDontPassBetPlaced(true);
