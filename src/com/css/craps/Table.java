@@ -193,13 +193,13 @@ public class Table {
             if (pointOn){
                 if (point == 4 || point == 10){
                     System.out.println("Odds pay 1/2");
-                    passlineOdds = 1/2;
+                    dontpassOdds = 1/2;
                 } else if (point == 5 || point == 9){
                     System.out.println("Odds pay 2/3");
-                    passlineOdds = 2/3;
+                    dontpassOdds = 2/3;
                 } else if (point == 6 || point == 8){
                     System.out.println("Odds pay 5/6");
-                    passlineOdds = 5/6;
+                    dontpassOdds = 5/6;
                 }
 
             }
@@ -218,7 +218,6 @@ public class Table {
     }
 
     public void passlineBet(){
-        double odds;
         if (pointOn != true) {
             if (player.isPasslineBetPlaced()) { // If bet already placed... return money to bank and set new bet
                 player.setBank(player.getBank() + player.getPasslineBet());
@@ -321,7 +320,7 @@ public class Table {
             else { // point is on
                 if (dice.getD1And2() == 7){ // 7 out (win)
                     money += player.getDontpassBet() + player.getOddsDontpassBet() * dontpassOdds;
-                    System.out.println("Dont pass pays $" + player.getDontpassBet() + player.getOddsDontpassBet() * dontpassOdds);
+                    System.out.println("Dont pass pays $" + (player.getDontpassBet() + player.getOddsDontpassBet() * dontpassOdds));
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
