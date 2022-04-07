@@ -33,23 +33,55 @@ public class Table {
 
     public void rollDice() throws InterruptedException {
         System.out.println("Press Enter to Roll... ");
-        String input = scanner.nextLine();
+        String stopper = scanner.nextLine();
 
-        if (input.equals("x") || input.equals("X")) {
+        if (stopper.equals("x") || stopper.equals("X")) {
             System.out.println("Come back any time");
             System.exit(0);
         }
-
-        dice.rollDice();
-        dice.show();
-        if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
-            System.out.println("You rolled an: " + this.getRoll());
-        }
         else {
-            System.out.println("You rolled a: " + this.getRoll());
+            dice.rollDice();
+            dice.show();
+            if (this.getRoll() == 8 || this.getRoll() == 11) {//is there supposed to be logic in here
+                System.out.println("You rolled an: " + this.getRoll());
+            } else {
+                System.out.println("You rolled a: " + this.getRoll());
+            }
+            // Dealer lingo
+            if (!pointOn){
+                if (dice.getD1And2() == 7){
+                    System.out.println("7 Winner");
+                }
+                else if (dice.getD1And2() == 11){
+                    System.out.println("Y0-LEVEN YO-LEVEN");
+                }
+                else if (dice.getD1And2() == 2){
+                    System.out.println("SNAKE EYES");
+                }
+                else if (dice.getD1And2() == 3){
+                    System.out.println("ACE DEUCE");
+                }
+            }
+            else if (pointOn){
+                if (dice.getD1And2() == 7){
+                    System.out.println("7 OUT");
+                }
+                else if (dice.getD1And2() == 11){
+                    System.out.println("Y0-LEVEN YO-LEVEN");
+                }
+                else if (dice.getD1And2() == 2){
+                    System.out.println("SNAKE EYES");
+                }
+                else if (dice.getD1And2() == 3){
+                    System.out.println("ACE DEUCE");
+                }
+                else if (point == dice.getD1And2()){
+                    System.out.println("Winner " + point + " winner " + point);
+                }
+            }
+            TimeUnit.SECONDS.sleep(1);
+            System.out.println("\n");
         }
-        TimeUnit.SECONDS.sleep(1);
-        System.out.println("\n");
     }
 
 
@@ -97,7 +129,7 @@ public class Table {
         while (!validInput) {
             try {
                 String betType; // Get type of bet to be placed
-                betType = scanner.nextLine(); // 1 will be passline bet
+                betType = scanner.next(); // 1 will be passline bet
                 if (betType.equals("x") || betType.equals("X")) {
                     System.out.println("Come back any time!");
                     System.exit(0);
@@ -145,7 +177,7 @@ public class Table {
 
     public void dontpassBet(){
         if (isPointOn() != true){
-            if (player.isPasslineBetPlaced()) { // If bet already placed... return money to bank and set new bet
+            if (player.isDontPassBetPlaced()) { // If bet already placed... return money to bank and set new bet
                 player.setBank(player.getBank() + player.getDontpassBet());
                 player.setDontpassBet(0);
             }
@@ -154,7 +186,7 @@ public class Table {
             if (player.getDontpassBet() != 0) {
                 player.setDontPassBetPlaced(true);
             }
-        } else if (pointOn && !player.isDontPassBetPlaced()){ // If point is on and no bet is placed, cannot place odds
+        } else if (pointOn && player.isDontPassBetPlaced() == false){ // If point is on and no bet is placed, cannot place odds
             System.out.println("Please wait until point is off to place Don't Pass bet");
         } else{
             System.out.println("Point is on " + getPlayersPointNumber() + " placing odds on Don't Pass Line.");
@@ -176,7 +208,7 @@ public class Table {
                 player.setOddsDontpassBet(0);
                 player.setThereDontPassOdds(false);
             }
-            player.setOddsPasslineBet(getBet());
+            player.setOddsDontpassBet(getBet());
             System.out.println("\nYou now have $" + player.getOddsDontpassBet() + " Don't Pass odds");
 
             if (player.getOddsDontpassBet() != 0) {
@@ -200,7 +232,7 @@ public class Table {
             }
             System.out.println("\nYou now have $" + player.getPasslineBet() + " on the Passline");
         }
-        else if (pointOn && !player.isPasslineBetPlaced()){ // If point is on and no bet is placed, cannot place odds
+        else if (pointOn && player.isPasslineBetPlaced() == false){ // If point is on and no bet is placed, cannot place odds
             System.out.println("Please wait until point is off to place Passline bet");
         } else {
             System.out.println("Point is on " + getPlayersPointNumber() + " placing odds on Passline.");
@@ -327,6 +359,7 @@ public class Table {
                 player.setFieldBet(false);
             }
         }
+        System.out.println("Field is paying " + (money-player.getBank()));
         player.setBank(money);
     }
 

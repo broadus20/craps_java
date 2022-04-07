@@ -137,8 +137,8 @@ public class CrapsApp {
 
 
     private void multiBet(){
-       boolean validInput = false;
-        while (!validInput) {
+       boolean stopBetting = false;
+       while (!stopBetting) {
             System.out.println("\nWould you like to place another bet? [y/n] ");
             String input = scanner.nextLine();
             if (input.equals("x") || input.equals("X")) {
@@ -148,7 +148,7 @@ public class CrapsApp {
             if (input.equals("y") || input.equals("Y")) {
                 table.bet();
             } else if (input.equals("n") || input.equals("N")){
-                validInput = true;
+                stopBetting = true;
             } else if (input.equals("?")){ // [?] Help Prompter
                 clearScreen();
                 System.out.println("\n\n");
