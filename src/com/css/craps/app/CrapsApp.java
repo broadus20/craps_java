@@ -2,14 +2,12 @@ package com.css.craps.app;
 
 import com.css.craps.Table;
 
-import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
-//app.utils library, a console.clear() (clears the console)
 
 public class CrapsApp {
     private static final String welcomeToPath = "data/welcome_to.txt";
