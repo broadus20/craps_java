@@ -12,8 +12,10 @@ import java.util.concurrent.TimeUnit;
 //app.utils library, a console.clear() (clears the console)
 
 public class CrapsApp {
+    private static final String welcomeToPath = "data/welcome_to.txt";
     private static final String flamingoPath = "data/flamingo_hotel.txt";
     private static final String welcomeDicePath = "data/welcome_dice.txt";
+    private static final String letsPlayCrapsPath = "data/lets_play_craps.txt";
     private static final String rulesPath = "data/help/rules.txt";
     private Table table = new Table();
     private Scanner scanner = new Scanner(System.in);
@@ -148,7 +150,7 @@ public class CrapsApp {
             if (input.equals("y") || input.equals("Y")) {
                 table.bet();
             } else if (input.equals("n") || input.equals("N")){
-                validInput = true;
+                 validInput = true;
             } else if (input.equals("?")){ // [?] Help Prompter
                 clearScreen();
                 System.out.println("\n\n");
@@ -171,6 +173,16 @@ public class CrapsApp {
     private void welcome() throws InterruptedException {
         System.out.println("\n\n");
         try {
+            List<String> lines = Files.readAllLines(Paths.get(welcomeToPath));
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             List<String> lines = Files.readAllLines(Paths.get(flamingoPath));
             for (String line : lines) {
                 System.out.println(line);
@@ -181,6 +193,18 @@ public class CrapsApp {
         }
         try {
             List<String> lines = Files.readAllLines(Paths.get(welcomeDicePath));
+            for (String line : lines) {
+                System.out.println(line);
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        TimeUnit.SECONDS.sleep(2);
+
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(letsPlayCrapsPath));
             for (String line : lines) {
                 System.out.println(line);
             }

@@ -2,15 +2,11 @@ package com.css.craps;
 
 import com.css.craps.app.CrapsApp;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Table {
-    private final String baseDiceDisplayPath = "data/dice_";
+//    private final String baseDiceDisplayPath = "data/dice_";
 
     //make fields private later
     private Scanner scanner = new Scanner(System.in);
@@ -41,7 +37,6 @@ public class Table {
         }
 
         dice.rollDice();
-        dice.show();
         if (this.getRoll() == 8 ||this.getRoll() == 11 ){//is there supposed to be logic in here
             System.out.println("You rolled an: " + this.getRoll());
         }
@@ -50,6 +45,8 @@ public class Table {
         }
         TimeUnit.SECONDS.sleep(1);
         System.out.println("\n");
+
+        dice.show();
     }
 
 
@@ -130,144 +127,78 @@ public class Table {
         }
     }
 
+    //fieldBet -> playerPlacesFieldBet
+
     public void fieldBet(){
-        if (player.isFieldBet()) { // If bet already placed... return money to bank and set new bet
-            player.setBank(player.getBank() + player.getFieldBet());
-            player.setFieldBetNumber(0);
-            player.setFieldBet(false);
-        }
+//        player.isFieldBet = true;
+        player.setFieldBet(true);
+//        player.fieldBet = getBet();
         player.setFieldBetNumber(getBet());
-        System.out.println("\nYou now have $" + player.getFieldBet() + " on the field");
-        if (player.getFieldBet() != 0) {
-            player.setFieldBet(true);
-        }
     }
+
+    //dontpassBet -> playerPlacesDontpassBet
 
     public void dontpassBet(){
         if (isPointOn() != true){
-            if (player.isPasslineBetPlaced()) { // If bet already placed... return money to bank and set new bet
-                player.setBank(player.getBank() + player.getDontpassBet());
-                player.setDontpassBet(0);
-            }
+//            player.isDontPassBetPlaced = true;
+            player.setDontPassBetPlaced(true);
+//            player.dontpassBet = getBet();
             player.setDontpassBet(getBet());
-            System.out.println("\nYou now have $" + player.getDontpassBet() + " on the Don't Pass line");
-            if (player.getDontpassBet() != 0) {
-                player.setDontPassBetPlaced(true);
-            }
-        } else if (pointOn && !player.isDontPassBetPlaced()){ // If point is on and no bet is placed, cannot place odds
-            System.out.println("Please wait until point is off to place Don't Pass bet");
-        } else{
-            System.out.println("Point is on " + getPlayersPointNumber() + " placing odds on Don't Pass Line.");
-            if (pointOn){
-                if (point == 4 || point == 10){
-                    System.out.println("Odds pay 1/2");
-                    passlineOdds = 1/2;
-                } else if (point == 5 || point == 9){
-                    System.out.println("Odds pay 2/3");
-                    passlineOdds = 2/3;
-                } else if (point == 6 || point == 8){
-                    System.out.println("Odds pay 5/6");
-                    passlineOdds = 5/6;
-                }
-
-            }
-            if (player.isThereDontPassOdds()) { // If bet already placed... return money to bank and set new bet
-                player.setBank(player.getBank() + player.getOddsDontpassBet());
-                player.setOddsDontpassBet(0);
-                player.setThereDontPassOdds(false);
-            }
-            player.setOddsPasslineBet(getBet());
-            System.out.println("\nYou now have $" + player.getOddsDontpassBet() + " Don't Pass odds");
-
-            if (player.getOddsDontpassBet() != 0) {
-                player.setThereDontPassOdds(true);
-            }
+        }
+        else{
+            System.out.println("Point is on " + getPlayersPointNumber() + " please wait to make passline bet.");
         }
     }
+
+//    passlineBet -> playerPLacesPasslineBet
 
     public void passlineBet(){
-        double odds;
         if (pointOn != true) {
-            if (player.isPasslineBetPlaced()) { // If bet already placed... return money to bank and set new bet
-                player.setBank(player.getBank() + player.getPasslineBet());
-                player.setPasslineBet(0);
-                player.setTherePassLineOdds(false);
-            }
+//            player.isPasslineBetPlaced = true;
+            player.setPasslineBetPlaced(true);
+//            player.passlineBet = getBet(); code before
             player.setPasslineBet(getBet());
-
-            if (player.getPasslineBet() != 0) {
-                player.setPasslineBetPlaced(true);
-            }
-            System.out.println("\nYou now have $" + player.getPasslineBet() + " on the Passline");
         }
-        else if (pointOn && !player.isPasslineBetPlaced()){ // If point is on and no bet is placed, cannot place odds
-            System.out.println("Please wait until point is off to place Passline bet");
-        } else {
-            System.out.println("Point is on " + getPlayersPointNumber() + " placing odds on Passline.");
-            if (pointOn){
-                if (point == 4 || point == 10){
-                    System.out.println("Odds pay 2/1");
-                    passlineOdds = 2.0;
-                } else if (point == 5 || point == 9){
-                    System.out.println("Odds pay 3/2");
-                    passlineOdds = 3/2;
-                } else if (point == 6 || point == 8){
-                    System.out.println("Odds pay 6/5");
-                    passlineOdds = 6/5;
-                }
-
-            }
-            if (player.isTherePassLineOdds()) { // If bet already placed... return money to bank and set new bet
-                player.setBank(player.getBank() + player.getOddsPasslineBet());
-                player.setOddsPasslineBet(0);
-                player.setTherePassLineOdds(false);
-            }
-            player.setOddsPasslineBet(getBet());
-            System.out.println("\nYou now have $" + player.getOddsPasslineBet() + " Passline odds");
-
-            if (player.getOddsPasslineBet() != 0) {
-                player.setTherePassLineOdds(true);
-            }
+        else {
+            System.out.println("Point is on " + getPlayersPointNumber() + " please wait until the point is off to make passline bet.");
         }
     }
 
+//    pay -> playerRegularBet
 
     public void pay(){
         int money = player.getBank();
         // check passline bet exists
-        if (player.isPasslineBetPlaced()){
+        if (player.isDontPassBetPlaced()){
+            System.out.println("this is the point; " + isPointOn());
             if (isPointOn()==false){ // Point is off
                 if (dice.getD1And2() == 7 || dice.getD1And2() == 11){
-                    money += player.getPasslineBet() *2;
-                    System.out.println("Passline win pays $" +  player.getPasslineBet() *2);
+                    money += player.getPasslineBet() * 2;
                     player.setPasslineBet(0);
-                    player.setOddsPasslineBet(0);
-                    player.setPasslineBetPlaced(false);
                     player.setTherePassLineOdds(false);
                 }
-                else if (dice.getD1And2()  == 2 || dice.getD1And2()  == 3 || dice.getD1And2()  ==12){
-                    System.out.println("Passline lost");
+                else if (dice.getD1And2()  == 2 || dice.getD1And2()  == 3 || dice.getD1And2() == 12) {
                     player.setPasslineBet(0);
-                    player.setOddsPasslineBet(0);
-                    player.setPasslineBetPlaced(false);
                     player.setTherePassLineOdds(false);
                 }
-            } else { // point established payout
+            }
+            else { // point established payout
                 if (dice.getD1And2() == getPlayersPointNumber()){ // point hit
                     money += player.getPasslineBet() + player.getOddsPasslineBet() * passlineOdds;
-                    System.out.println("You hit your point! \n " +
-                            "passline pays $ " + player.getPasslineBet() +
-                            "\npassline odds pay $" + player.getOddsPasslineBet() * passlineOdds);
                     player.setPasslineBet(0);
+//                    player.passlineBet = 0;
                     player.setOddsPasslineBet(0);
+//                    player.oddsPasslineBet = 0;
                     player.setPasslineBetPlaced(false);
-                    player.setTherePassLineOdds(false);
+//                    player.isPasslineBetPlaced = false;
                 }
                 else if (dice.getD1And2() == 7){ // 7 out
                     player.setPasslineBet(0);
+//                    player.passlineBet = 0;
                     player.setOddsPasslineBet(0);
+//                    player.oddsPasslineBet = 0;
                     player.setPasslineBetPlaced(false);
-                    player.setTherePassLineOdds(false);
+//                    player.isPasslineBetPlaced = false;
                 }
             }
         }
@@ -275,13 +206,13 @@ public class Table {
         if (player.isDontPassBetPlaced()){
             if (!isPointOn()){ // Point is off
                 if (dice.getD1And2() == 2 || dice.getD1And2() == 3){ // payout
-                    System.out.println("Dont Pass line pays $" + player.getDontpassBet() *2);
                     money += player.getDontpassBet() *2;
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
                 else if (dice.getD1And2() == 7 || dice.getD1And2()== 11){
-                    System.out.println("Don't pass bet lost");
+//                    player.dontpassBet = 0;
+//                    player.isDontPassBetPlaced = false;
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
                 }
@@ -289,24 +220,20 @@ public class Table {
             else { // point is on
                 if (dice.getD1And2() == 7){ // 7 out (win)
                     money += player.getDontpassBet() + player.getOddsDontpassBet() * dontpassOdds;
-                    System.out.println("Dont pass pays $" + player.getDontpassBet() + player.getOddsDontpassBet() * dontpassOdds);
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
-                    player.setThereDontPassOdds(false);
                 }
                 else if (dice.getD1And2() == getPlayersPointNumber()){ // point hit (loss)
-                    System.out.println("Don't pass lost");
                     player.setOddsDontpassBet(0);
                     player.setDontpassBet(0);
                     player.setDontPassBetPlaced(false);
-                    player.setThereDontPassOdds(false);
                 }
             }
         }
         player.setBank(money);
     }
-
+//pay-> payFieldBet
     public void payField(){
         int money = player.getBank();
         if (player.isFieldBet()){
@@ -327,6 +254,7 @@ public class Table {
                 player.setFieldBet(false);
             }
         }
+//        player.bank = money;
         player.setBank(money);
     }
 
@@ -349,9 +277,6 @@ public class Table {
             if (player.isThereDontPassOdds()){
                 System.out.println("You have $" + player.getOddsDontpassBet() + " odds");
             }
-        }
-        if (player.isFieldBet()){
-            System.out.println("You have $" + player.getFieldBet() + " on the field");
         }
     }
 
